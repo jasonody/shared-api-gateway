@@ -1,0 +1,34 @@
+service: shared-api-gateway-core
+
+provider:
+  name: aws
+  description: Sharing an AWS API Gateway across multiple Serverless stacks
+  tags:
+    vertical: shared-api-gateway
+    service: core
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'dev'}
+  runtime: nodejs8.10
+  size: 128
+
+resources:
+  Resources:
+    SharedApiGateway:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        Name: ${self:provider.stage}-${self:service}-SharedApiGateway
+
+  Outputs:
+    apiGatewayRestApiId:
+      Value:
+        Ref: SharedApiGateway
+      Export:
+        Name: ${self:provider.stage}-${self:service}-SharedApiGateway-restApiId
+
+    apiGatewayRestApiRootResourceId:
+      Value:
+        Fn::GetAtt:
+          - SharedApiGateway
+          - RootResourceId
+      Export:
+        Name: ${self:provider.stage}-${self:service}-SharedApiGateway-rootResourceId

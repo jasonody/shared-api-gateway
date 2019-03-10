@@ -1,0 +1,31 @@
+service: shared-api-gateway-service-a
+
+provider:
+  name: aws
+  description: Sharing an AWS API Gateway across multiple Serverless stacks
+  tags:
+    vertical: shared-api-gateway
+    service: service-a
+  region: ${opt:region, 'us-east-1'}
+  stage: ${opt:stage, 'dev'}
+  runtime: nodejs8.10
+  size: 128
+  apiGateway:
+    restApiId:
+      'Fn::ImportValue': ${self:provider.stage}-${self:custom.coreServiceName}-SharedApiGateway-restApiId
+    restApiRootResourceId:
+      'Fn::ImportValue': ${self:provider.stage}-${self:custom.coreServiceName}-SharedApiGateway-rootResourceId
+
+custom:
+  coreServiceName: shared-api-gateway-core
+  # If using a mono-repo, you could retrieve the service like this:
+  # coreService: ${file(../core/serverless.yaml)}
+  # coreServiceName: ${self:custom.coreService.service}
+
+functions:
+  ping:
+    handler: handler.ping
+    events:
+      - http:
+          path: /serviceA
+          method: get
