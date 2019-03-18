@@ -11,7 +11,7 @@ The Core stack exports the `restApiId` and `restApiRootResourceId` using CloudFo
 
 
 ## Steps
-1. Execute: `npm i`
+1. Execute: `npm run install`
 2. Execute: `npm run deploy`
 3. In the AWS console review the following:
    - API Gatway: `dev-shared-api-gateway-core-SharedApiGateway`

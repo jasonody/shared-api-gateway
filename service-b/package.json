@@ -15,8 +15,5 @@
   "bugs": {
     "url": "https://github.com/jasonody/shared-api-gateway/issues"
   },
-  "homepage": "https://github.com/jasonody/shared-api-gateway#readme",
-  "dependencies": {
-    "aws-sdk": "^2.418.0"
-  }
+  "homepage": "https://github.com/jasonody/shared-api-gateway#readme"
 }

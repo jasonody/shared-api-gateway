@@ -4,6 +4,7 @@
   "description": "Sharing an AWS API Gateway across multiple Serverless stacks",
   "main": "index.js",
   "scripts": {
+    "install": "cd core && npm i && cd ..",
     "deploy": "cd core && echo Deploying Core && sls deploy -v && cd ../service-a && echo Deploying Service A && sls deploy -v && cd ../service-b && echo Deploying Service B && sls deploy -v && cd ..",
     "remove": "cd service-a && echo Removing Service A && sls remove -v && cd ../service-b && echo Removing Service B && sls remove -v && cd ../core && echo Removing Core && sls remove -v && cd .."
   },
